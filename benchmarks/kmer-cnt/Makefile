@@ -2,7 +2,7 @@ CXX     = g++
 #CXX		 = icpc
 #VTUNE_HOME= /opt/intel/vtune_profiler
 LIBS= -lz -lm -lbz2 -llzma -ldl -fopenmp
-CXXFLAGS   = -O3 -fopenmp
+CXXFLAGS   = -O3 -fopenmp $(ZSIM_FLAGS)
 INC = -Ilibcuckoo
 
 ifneq ($(VTUNE_HOME),)

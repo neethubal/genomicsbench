@@ -21,6 +21,9 @@
 #include "spoa/graph.hpp"
 #include "spoa/alignment_engine.hpp"
 #include <x86intrin.h>
+#ifdef ENABLE_ZSIM_HOOKS
+#include "zsim_hooks.h"
+#endif
 
 
 // #define VTUNE_ANALYSIS 1
@@ -227,6 +230,9 @@ int main(int argc, char** argv) {
     std::sort(batches.begin(), batches.end(), SortBySize());
 #endif
 
+#ifdef ENABLE_ZSIM_HOOKS
+    zsim_roi_begin();
+#endif
 #pragma omp parallel num_threads(numThreads)
 {
     int tid = omp_get_thread_num();
@@ -258,6 +264,9 @@ int main(int argc, char** argv) {
     printf("%d] workTicks = %ld\n", tid, workTicks[CLMUL * tid]);
 
 }
+#ifdef ENABLE_ZSIM_HOOKS
+    zsim_roi_end();
+#endif
 #ifdef ENABLE_SORT
     std::sort(batches.begin(), batches.end(), SortById());
 #endif

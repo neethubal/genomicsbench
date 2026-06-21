@@ -17,6 +17,9 @@
 #include "memory_info.h"
 #include "time.h"
 #include "sys/time.h"
+#ifdef ENABLE_ZSIM_HOOKS
+#include "zsim_hooks.h"
+#endif
 
 #include <getopt.h>
 
@@ -225,6 +228,9 @@ int main(int argc, char** argv)
     __itt_resume();
 #endif
 	roi_q = __parsec_roi_begin(roi_s, &roi_i, &roi_j);
+#ifdef ENABLE_ZSIM_HOOKS
+	zsim_roi_begin();
+#endif
 	bool useMinimizers = Config::get("use_minimizers");
 	if (useMinimizers)
 	{
@@ -237,6 +243,9 @@ int main(int argc, char** argv)
 		// vertexIndex.buildIndexUnevenCoverage(MIN_FREQ, SELECT_RATE, 
 		//									 TANDEM_FREQ);
 	}
+#ifdef ENABLE_ZSIM_HOOKS
+	zsim_roi_end();
+#endif
 	roi_q = __parsec_roi_end(roi_s, &roi_i, &roi_j);
 #ifdef VTUNE_ANALYSIS
     __itt_pause();

@@ -49,7 +49,7 @@ endif
 # flags #
 #COMPILE_FLAGS = -std=c++11 -Wall -Wextra -g -O3 -fopenmp -xAVX2 -axAVX2
 #VTUNE_HOME= /opt/intel/vtune_profiler
-COMPILE_FLAGS = -std=c++11 -Wall -Wextra -g -O3 -fopenmp $(ARCH_FLAGS)
+COMPILE_FLAGS = -std=c++11 -Wall -Wextra -g -O3 -fopenmp $(ARCH_FLAGS) $(ZSIM_FLAGS)
 INCLUDES = -I../../tools/minimap2
 # Space-separated pkg-config libraries used by this project
 LIBS = -L../../tools/minimap2 -lminimap2 -ldl

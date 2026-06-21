@@ -34,6 +34,9 @@ Authors: Vasimuddin Md <vasimuddin.md@intel.com>; Sanchit Misra <sanchit.misra@i
 #include <string.h>
 #include "bwa.h"
 #include "FMI_search.h"
+#ifdef ENABLE_ZSIM_HOOKS
+#include "zsim_hooks.h"
+#endif
 
 // #define VTUNE_ANALYSIS 1
 
@@ -177,6 +180,9 @@ int main(int argc, char **argv) {
 
     int split_len = (int)(minSeedLen * splitFactor + .499);
 
+#ifdef ENABLE_ZSIM_HOOKS
+    zsim_roi_begin();
+#endif
 #pragma omp parallel num_threads(numthreads)
     {
         int32_t tid = omp_get_thread_num();
@@ -286,6 +292,9 @@ int main(int argc, char **argv) {
     }
 
     endTick = __rdtsc();
+#ifdef ENABLE_ZSIM_HOOKS
+    zsim_roi_end();
+#endif
 #ifdef VTUNE_ANALYSIS
     __itt_pause();
 #endif

@@ -9,6 +9,9 @@
 #include "host_data_io.h"
 #include "host_data.h"
 #include "host_kernel.h"
+#ifdef ENABLE_ZSIM_HOOKS
+#include "zsim_hooks.h"
+#endif
 
 // #define PRINT_OUTPUT 1
 
@@ -93,7 +96,13 @@ int main(int argc, char **argv) {
 #ifdef VTUNE_ANALYSIS
     __itt_resume();
 #endif
+#ifdef ENABLE_ZSIM_HOOKS
+    zsim_roi_begin();
+#endif
     host_chain_kernel(calls, rets, numThreads);
+#ifdef ENABLE_ZSIM_HOOKS
+    zsim_roi_end();
+#endif
 #ifdef VTUNE_ANALYSIS
     __itt_pause();
 #endif

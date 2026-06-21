@@ -38,6 +38,9 @@ Authors: Vasimuddin Md <vasimuddin.md@intel.com>; Sanchit Misra <sanchit.misra@i
 #include <fstream>
 #include "utils.h"
 #include "bandedSWA.h"
+#ifdef ENABLE_ZSIM_HOOKS
+#include "zsim_hooks.h"
+#endif
 
 // #define VTUNE_ANALYSIS 1
 
@@ -276,10 +279,13 @@ int main(int argc, char *argv[])
     #endif
     int64_t workTicks[CLMUL * numThreads];
     memset(workTicks, 0, CLMUL * numThreads * sizeof(int64_t));
+#ifdef ENABLE_ZSIM_HOOKS
+    zsim_roi_begin();
+#endif
 #pragma omp parallel num_threads(numThreads)
 {
     int tid = omp_get_thread_num();
-    #pragma omp for schedule(dynamic, 1) 
+    #pragma omp for schedule(dynamic, 1)
         for (int64_t i = 0; i < roundNumPairs; i += batchSize) {
             int nPairsBatch = (numPairs - i) >= batchSize ? batchSize : numPairs - i;
             int64_t st1 = __rdtsc();
@@ -287,9 +293,12 @@ int main(int argc, char *argv[])
             int64_t et1 = __rdtsc();
             workTicks[CLMUL * tid] += (et1 - st1);
         }
-    printf("%d] workTicks = %ld\n", tid, workTicks[CLMUL * tid]);  
+    printf("%d] workTicks = %ld\n", tid, workTicks[CLMUL * tid]);
 }
-    
+#ifdef ENABLE_ZSIM_HOOKS
+    zsim_roi_end();
+#endif
+
     #ifdef VTUNE_ANALYSIS
         __itt_pause();
     #endif
