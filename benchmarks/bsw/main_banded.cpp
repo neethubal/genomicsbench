@@ -36,6 +36,7 @@ Authors: Vasimuddin Md <vasimuddin.md@intel.com>; Sanchit Misra <sanchit.misra@i
 #include <unistd.h>
 #include <omp.h>
 #include <fstream>
+#include <x86intrin.h>
 #include "utils.h"
 #include "bandedSWA.h"
 #ifdef ENABLE_ZSIM_HOOKS

@@ -17,6 +17,9 @@
 #include "medaka_bamiter.h"
 #include "medaka_common.h"
 #include "medaka_counts.h"
+#ifdef ENABLE_ZSIM_HOOKS
+#include "../../common/zsim_hooks.h"
+#endif
 
 // #define PRINT_OUTPUT 1
 
@@ -552,6 +555,9 @@ int main(int argc, char *argv[]) {
 #ifdef VTUNE_ANALYSIS
     __itt_resume();
 #endif
+#ifdef ENABLE_ZSIM_HOOKS
+    zsim_roi_begin();
+#endif
     // process batches in parallel
     #pragma omp parallel num_threads(numThreads)
     {
@@ -565,6 +571,9 @@ int main(int argc, char *argv[]) {
     }
 #ifdef VTUNE_ANALYSIS
     __itt_pause();
+#endif
+#ifdef ENABLE_ZSIM_HOOKS
+    zsim_roi_end();
 #endif
     gettimeofday(&end_time, NULL);
     runtime += (end_time.tv_sec - start_time.tv_sec)*1e6 + end_time.tv_usec - start_time.tv_usec;

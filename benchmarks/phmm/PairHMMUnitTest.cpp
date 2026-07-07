@@ -25,6 +25,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <omp.h>
+#ifdef ENABLE_ZSIM_HOOKS
+#include "../../common/zsim_hooks.h"
+#endif
 #include <getopt.h>
 #include <iostream>
 #include <fstream>
@@ -216,6 +219,9 @@ int main(int argc, char** argv) {
 #ifdef VTUNE_ANALYSIS
     __itt_resume();
 #endif
+#ifdef ENABLE_ZSIM_HOOKS
+    zsim_roi_begin();
+#endif
     while (opt::loop) {
         #ifdef ENABLE_SORT
             std::sort(batches.begin(), batches.end(), SortByCells());
@@ -253,6 +259,9 @@ int main(int argc, char** argv) {
     }
 #ifdef VTUNE_ANALYSIS
     __itt_pause();
+#endif
+#ifdef ENABLE_ZSIM_HOOKS
+    zsim_roi_end();
 #endif
 
     gettimeofday(&end_time, NULL);

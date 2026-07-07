@@ -16,6 +16,19 @@ git clone --recursive https://github.com/arun-sub/genomicsbench.git
 
 ```bash
 wget https://genomicsbench.eecs.umich.edu/input-datasets.tar.gz
+
+```
+
+If the issuer cert for genomicsbench.eecs.umich.edu is missing, run this with SSL verification bypassed — type this directly in your shell:
+
+```
+curl -k -L -C - https://genomicsbench.eecs.umich.edu/input-datasets.tar.gz \
+  -o /cephyr/NOBACKUP/groups/c3se2026-1-51/neethub/genomicsbench_input_datasets.tar.gz
+```
+Once downloaded, extract with:
+```
+tar -xzf /cephyr/NOBACKUP/groups/c3se2026-1-51/neethub/genomicsbench_input_datasets.tar.gz \
+  -C /cephyr/NOBACKUP/groups/c3se2026-1-51/neethub/genomicsbench_input_datasets
 ```
 
 ## Prerequisites

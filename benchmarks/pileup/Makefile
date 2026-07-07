@@ -2,7 +2,7 @@ CC     = gcc
 #CC		= icc
 #VTUNE_HOME= /opt/intel/vtune_profiler
 LIBS = -lz -lm -lbz2 -llzma -lpthread -lcurl -lcrypto -ldl
-CFLAGS   = -g -Wall -pthread -fstack-protector-strong -D_FORTIFY_SOURCE=2 -fPIC -std=c99 -O3 -fopenmp
+CFLAGS   = -g -Wall -pthread -fstack-protector-strong -D_FORTIFY_SOURCE=2 -fPIC -std=c99 -O3 -fopenmp -DENABLE_ZSIM_HOOKS
 INC = -I../../tools/htslib
 
 ifneq ($(VTUNE_HOME),)

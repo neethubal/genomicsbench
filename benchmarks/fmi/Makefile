@@ -56,7 +56,7 @@ else ifneq ($(arch),)
 		ARCH_FLAGS=$(arch)
 endif
 
-CXXFLAGS=	-std=c++11 -fopenmp $(ARCH_FLAGS) $(ZSIM_FLAGS) #-mtune=native -march=native
+CXXFLAGS=	-std=c++11 -fopenmp $(ARCH_FLAGS) -DENABLE_ZSIM_HOOKS -I../../common #-mtune=native -march=native
 #CPPFLAGS=	-DPRINT_OUTPUT -DENABLE_PREFETCH -DBWA_OTHER_ELE=0
 CPPFLAGS=	-DENABLE_PREFETCH -DBWA_OTHER_ELE=0
 BWAMEM2_PATH=../../tools/bwa-mem2

@@ -22,12 +22,12 @@ else ifneq ($(arch),)
 	## To provide a different architecture flag like -march=core-avx2.
 		ARCH_FLAGS=$(arch)
 endif
-CFLAGS= -g -O2 -std=c++11 $(ARCH_FLAGS)
+CFLAGS= -g -O2 -std=c++11 $(ARCH_FLAGS) -DENABLE_ZSIM_HOOKS
 
 #VTUNE_HOME= /opt/intel/vtune_profiler
 GKLPATH= ../../tools/GKL
 INC=
-SHARED_LIBRARIES = -fopenmp -L$(GKLPATH)/build/native -lgkl_pairhmm_c -lstdc++ -ldl
+SHARED_LIBRARIES = -fopenmp -L$(GKLPATH)/build/native/src/main/native/pairhmm -lgkl_pairhmm_c -Wl,-rpath,/cephyr/users/neethub/Vera/pim_bzsim_workspace/benchmarks/genomicsbench/tools/GKL/build/native/src/main/native/pairhmm -lstdc++ -ldl
 
 ifneq ($(VTUNE_HOME),)
 CFLAGS+= -DVTUNE_ANALYSIS=1

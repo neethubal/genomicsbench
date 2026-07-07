@@ -23,7 +23,7 @@ else ifneq ($(arch),)
 		ARCH_FLAGS=$(arch)
 endif
 
-CXXFLAGS=-O3 -fopenmp $(ARCH_FLAGS) $(ZSIM_FLAGS)
+CXXFLAGS=-O3 -fopenmp $(ARCH_FLAGS) -DENABLE_ZSIM_HOOKS -I../../common
 #VTUNE_HOME= /opt/intel/vtune_profiler
 INCLUDES=-I../../tools/spoa/include
 LIBS=-L../../tools/spoa/build/lib/ -lspoa -ldl -fopenmp
