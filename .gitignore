@@ -21,6 +21,6 @@ benchmarks/pileup/pileup
 benchmarks/poa/poa
 *.a
 
-# large input datasets
-input-datasets/
+# large input datasets (symlink or directory)
+input-datasets
 input-datasets.tar.gz
